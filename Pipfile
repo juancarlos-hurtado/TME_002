@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==4.1.2"
+pymysql = "==1.0.2"
+pandas = "==1.5.1"
+sqlalchemy = "==1.4.42"
+asgiref = "==3.5.2"
+greenlet = "==2.0.0.post0"
+numpy = "==1.23.4"
+python-dateutil = "==2.8.2"
+pytz = "==2022.6"
+six = "==1.16.0"
+sqlparse = "==0.4.3"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
+python_full_version = "3.9.13"

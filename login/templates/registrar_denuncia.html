@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Estilos -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/registrar_denuncia.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/header_nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/footer_marquee.css' %}">
+    <!-- Íconos -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+    <script src="https://kit.fontawesome.com/c01c9a85f3.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <title>TME_002</title>
+</head>
+<body>
+    {% include 'fixed_elements/header_nav.html' %}
+    <main>
+        <form action="" method="post" class="form_denuncia">
+            {% csrf_token %}
+            <div class="input_row">
+                <div class="input_group">
+                    <h5>Tipo de daño sufrido</h5>
+                    <select class="input_data" name="tipo_daño" id="">
+                        <option selected disabled>Selecciona</option>
+                        <option value="Físico" >Físico</option>
+                        <option value="Psicológico">Psicológico</option>
+                        <option value="Patrimonial">Patrimonial</option>
+                        <option value="Sexual">Sexual</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div class="input_group">
+                    <h5>Fecha de los hechos</h5>
+                    <input type="date" class="input_data" max="{% now 'Y-m-d' %}" name="fecha_hechos" id="">
+                </div>
+            </div>
+
+            <div class="input_row">
+                <div class="input_group">
+                    <h5>Lugar de los hechos</h5>
+                    <input type="text" class="input_data" placeholder="Calle" name="calle" id="">
+                    <input type="text" class="input_data" placeholder="Número exterior" name="num_exterior" id="">
+                    <input type="text" class="input_data" placeholder="Número interior" name="num_interior" id="">
+                    <input type="text" class="input_data" placeholder="Código postal" name="cp" id="">
+                </div>
+            </div>
+
+            <div class="input_row">
+                <div class="input_group">
+                    <input type="text" class="input_data" placeholder="Colonia" name="colonia" id="">
+                    <input type="text" class="input_data" placeholder="Localidad" name="localidad" id="">
+                    <input type="text" class="input_data" placeholder="Delegación o municipio" name="del_mun" id="">
+                    <input type="text" class="input_data" placeholder="Entidad federativa" name="entidad_federativa" id="">
+                </div>
+            </div>
+
+            <div class="input_row">
+                <div class="input_group">
+                    <h5>Otros datos de ubicación</h5>
+                    <textarea name="otros_datos" id="txtarea_ubicación" cols="30" rows="10" class="input_data"></textarea>
+                </div>
+            </div>
+
+            <div class="input_row">
+                <div class="input_group">
+                    <h5>Relato de los hechos</h5>
+                    <textarea name="relato_hechos" id="txtarea_relato" cols="30" rows="10" class="input_data"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="form_btn btn_user" name="enviar_denuncia">Registrar denuncia</button>
+        </form>
+    </main>
+    {% include 'fixed_elements/footer_marquee.html' %}
+</body>
+</html>

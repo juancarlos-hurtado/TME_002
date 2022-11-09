@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Estilos -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/complete_profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/footer_marquee.css' %}">
+    <title>TME_002</title>
+</head>
+<body>
+    {% include 'fixed_elements/header_nav.html' %}
+
+    <main>
+            <form action="" class="user_forms" method="post">
+                {% csrf_token %}
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Nombre(s)</h5>
+                        <input type="text" class="input_data" name = 'nombres'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Primer apellido</h5>
+                        <input type="text" class="input_data" name = 'primer_apellido'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Segundo apellido</h5>
+                        <input type="text" class="input_data" name = 'segundo_apellido'>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Teléfono móvil</h5>
+                        <input type="text" class="input_data" name = 'tel_movil'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Teléfono fijo</h5>
+                        <input type="text" class="input_data" name = 'tel_fijo'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Correo electrónico</h5>
+                        <input type="text" class="input_data" name = 'email'>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Dependencia</h5>
+                        <input type="text" class="input_data" name = 'dependencia'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Cargo</h5>
+                        <input type="text" class="input_data" name = 'cargo'>
+                    </div>
+                </div>
+
+                <button type="submit" class="form_btn btn_user" name="finalizar">Finalizar</button>
+            </form>
+    </main>
+
+    {% include 'fixed_elements/footer_marquee.html' %}
+</body>
+</html>
