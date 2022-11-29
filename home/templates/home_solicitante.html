@@ -23,15 +23,19 @@
         <div class="main_header">
             <form action="" method="post" class="home_form" id="update_form">
                 <label 
-                type="" id="update_btn" name="update_btn">Víctima</label>
+                type="" id="update_btn" name="update_btn">Solicitante externo</label>
             </form>
         </div>
 
         <div class="main_body">
             <div id="options">
-                <form action="{% url 'fud:registrar-denuncia-victima' %}" method="post" class="home_form">
+                <form action="{% url 'login:registrar_denuncia_solicitante' %}" method="post" class="home_form">
                     {% csrf_token %}
                     <button type="submit" id="send_top" name="send_top" class="form_btn">Registrar denuncia</button>
+                </form>
+                <form action="{% url 'login:registrar_victima' %}" method="post" class="home_form">
+                    {% csrf_token %}
+                    <button type="submit" id="send_top" name="send_top" class="form_btn">Registrar víctima</button>
                 </form>
                 <form action="" method="post" class="home_form">
                     {% csrf_token %}

@@ -54,11 +54,11 @@ def login_user(request):
 def home(request):
     if request.user.is_profiled == True:
         if request.user.user_type == 'Víctima':
-            return render(request, 'home_victima.html')
+            return redirect('home:home-victima')
         elif request.user.user_type == 'Solicitante Externo':
-            return render(request, 'home_solicitante.html')
+            return redirect('home:home-solicitante')
         else:
-            return render(request, 'home_servidor.html')
+            return redirect('home:home-servidor')
     else:
         if request.user.user_type == 'Víctima':
             return redirect('login:complete_victim_profile')
@@ -181,35 +181,6 @@ def complete_servidor_profile(request):
 
     return render(request, 'complete_servidor_profile.html', context )
 
-@login_required
-def registrar_denuncia_víctima(request):
-    if request.method == 'POST':
-        if 'enviar_denuncia' in request.POST:
-            User = get_user_model()
-            user = User.objects.get(id=request.user.id)
-
-            tipo_de_daño = request.POST['tipo_daño']
-            denunciante = user
-            víctima = models.Víctima.objects.get(víctima = request.user.id)
-            fecha_hechos = request.POST['fecha_hechos']
-            calle = request.POST['calle']
-            número_exterior = request.POST['num_exterior']
-            número_interior = request.POST['num_interior']
-            código_postal = request.POST['cp']
-            colonia = request.POST['colonia']
-            localidad = request.POST['localidad']
-            del_mun = request.POST['del_mun']
-            entidad_federativa = request.POST['entidad_federativa']
-            otros_datos = request.POST['otros_datos']
-            relato = request.POST['relato_hechos']
-
-            push_to_denuncia = Denuncia.objects.create(tipo_de_daño = tipo_de_daño, denunciante = denunciante, víctima = víctima, fecha_hechos = fecha_hechos, calle = calle, número_exterior = número_exterior, número_interior = número_interior, código_postal = código_postal, colonia = colonia, localidad = localidad, del_mun = del_mun, entidad_federativa = entidad_federativa, otros_datos_ubicación = otros_datos, relato_de_hechos = relato)
-            push_to_denuncia.save()
-
-            return redirect('login:home')
-
-    return render(request, 'registrar_denuncia.html')
-    
 
 @login_required
 def registrar_victima(request):
