@@ -12,13 +12,13 @@ from django.contrib.auth.models import User
 
 @login_required(login_url = 'login:login')
 def home_servidor(request):
-    return render(request, 'home_servidor.html')
+    return render(request, 'home/home_servidor.html')
 
 @login_required(login_url = 'login:login')
 def home_victima(request):
-    return render (request, 'home_victima.html')
+    return render (request, 'home/home_victima.html')
 
 @login_required(login_url = 'login:login')
 def home_solicitante(request):
-    return render (request, 'home_solicitante.html')
+    return render (request, 'home/home_solicitante.html')
 

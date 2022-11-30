@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Estilos -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/complete_profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/footer_marquee.css' %}">
+    <title>TME_002</title>
+</head>
+<body>
+    {% include 'login/fixed_elements/header_nav.html' %}
+
+    <main>
+            <form action="" class="user_forms" method="post">
+                {% csrf_token %}
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Tipo de víctima</h5>
+                        <p class="radio_group">
+                            <label><input type="radio" name="tipo" value="Directa"   id="">Directa</label>
+                            <label><input type="radio" name="tipo" value="Indirecta" id="">Indirecta</label>
+                            <label><input type="radio" name="tipo" value="Potencial" id="">Potencial</label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Nombre(s)</h5>
+                        <input type="text" class="input_data" name = 'nombres'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Primer apellido</h5>
+                        <input type="text" class="input_data" name = 'primer_apellido'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Segundo apellido</h5>
+                        <input type="text" class="input_data" name = 'segundo_apellido'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Fecha de nacimiento</h5>
+                        <input type="date" class="input_data" max="{% now 'Y-m-d' %}" name = 'fecha_nacimiento'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>Sexo</h5>
+                        <p class="radio_group">
+                            <label><input type="radio" name="sexo" value="Hombre" id="">Hombre</label>
+                            <label><input type="radio" name="sexo" value="Mujer"  id="">Mujer</label>
+                            <label><input type="radio" name="sexo" value="Otro"   id="">Otro</label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Nacionalidad</h5>
+                        <input type="text" class="input_data" name = 'nacionalidad'>
+                    </div>
+
+                    <div class="input_group">
+                        <h5>CURP</h5>
+                        <input type="text" class="input_data" name = 'curp'>
+                    </div>
+
+                    <div class="input_group birth_group">
+                        <h5>Lugar de nacimiento</h5>
+                        <input type="text" class="input_data" placeholder="País" name = 'país' style="width: 180px;">
+                        <input type="text" class="input_data" placeholder="Entidad federativa" name = 'ent_fed_nac' style="width: 180px;">
+                        <input type="text" class="input_data" placeholder="Delegación o municipio" name = 'del_mun_nac' style="width: 180px;">
+                        <input type="text" class="input_data" placeholder="Población o comunidad" name = 'comunidad_nacimiento'>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Estado Civil</h5>
+                        <p class="radio_group">
+                            <label><input type="radio" name="edo_civil" value="Soltero/a"   id="">Soltero/a</label>
+                            <label><input type="radio" name="edo_civil" value="Casado/a" id="">Casado/a</label>
+                            <label><input type="radio" name="edo_civil" value="Divorciado/a" id="">Divorciado/a</label>
+                            <label><input type="radio" name="edo_civil" value="Viudo/a"   id="">Viudo/a</label>
+                            <label><input type="radio" name="edo_civil" value="Unión libre" id="">Unión libre</label>
+                            <label><input type="radio" name="edo_civil" value="Concubinato" id="">Concubinato</label>
+                            <label><input type="radio" name="edo_civil" value="Separado/a" id="">Separado/a</label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Domicilio</h5>
+                        <input type="text" class="input_data" placeholder="Calle" name = 'calle'>
+                        <input type="text" class="input_data" placeholder="Número exterior" name = 'num_exterior'>
+                        <input type="text" class="input_data" placeholder="Número interior" name = 'num_interior'>
+                        <input type="text" class="input_data" placeholder="Código postal" name = 'cp'>
+                        <input type="text" class="input_data" placeholder="Colonia" name = 'colonia'>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <input type="text" class="input_data" placeholder="Localidad" name = 'localidad'>
+                        <input type="text" class="input_data" placeholder="Delegación o municipio" name = 'del_mun'>
+                        <input type="text" class="input_data" placeholder="Entidad federativa" name = 'ent_fed'>
+                        <input type="text" class="input_data" placeholder="Teléfono" name = 'teléfono'>
+                    </div>
+                </div>
+
+                <div class="input_row">
+                    <div class="input_group">
+                        <h5>Correo electrónico</h5>
+                        <input type="text" class="input_data" name = 'email'>
+                    </div>
+                </div>
+
+                <button type="submit" class="form_btn btn_user" name="finalizar">Finalizar</button>
+            </form>
+    </main>
+
+    {% include 'login/fixed_elements/footer_marquee.html' %}
+</body>
+</html>

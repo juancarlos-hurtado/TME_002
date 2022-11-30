@@ -21,7 +21,14 @@
     <main>
         <form action="" method="post" class="form_denuncia">
             {% csrf_token %}
-            <div class="input_row">
+            <div class="input_row" id="first_row">
+                <div class="input_group" id="input_test">
+                    <h5>Víctima</h5>
+                    <a href="{% url 'fud:complete-victim-profile' %}" class = 'data_btn'>Registrar víctima</a>
+                    |
+                    <input type="text" placeholder="Buscar por CURP" class="input_data" name="buscar_curp">
+                </div> 
+
                 <div class="input_group">
                     <h5>Tipo de daño sufrido</h5>
                     <select class="input_data" name="tipo_daño" id="">

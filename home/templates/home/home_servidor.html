@@ -17,7 +17,7 @@
     <title>TME_002</title>
 </head>
 <body>
-    {% include 'fixed_elements/header_nav.html' %}
+    {% include 'home/fixed_elements/header_nav.html' %}
 
     <main>
         <div class="main_header">
@@ -29,11 +29,11 @@
 
         <div class="main_body">
             <div id="options">
-                <form action="{% url 'login:registrar_denuncia_servidor' %}" method="post" class="home_form">
+                <form action="{% url 'fud:registrar-denuncia-servidor' %}" method="post" class="home_form">
                     {% csrf_token %}
                     <button type="submit" id="send_top" name="send_top" class="form_btn">Registrar denuncia</button>
                 </form>
-                <form action="{% url 'login:registrar_victima' %}" method="post" class="home_form">
+                <form action="{% url 'fud:complete-victim-profile' %}" method="post" class="home_form">
                     {% csrf_token %}
                     <button type="submit" id="send_top" name="send_top" class="form_btn">Registrar víctima</button>
                 </form>
@@ -49,7 +49,7 @@
         </div>
     </main>
 
-    {% include 'fixed_elements/footer_marquee.html' %}
+    {% include 'home/fixed_elements/footer_marquee.html' %}
 </body>
 </html>
 
