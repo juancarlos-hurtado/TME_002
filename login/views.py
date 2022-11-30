@@ -182,35 +182,6 @@ def complete_servidor_profile(request):
     return render(request, 'login/complete_servidor_profile.html', context )
 
 @login_required
-def registrar_denuncia_servidor(request):
-    if request.method == 'POST':
-        if 'enviar_denuncia' in request.POST:
-            User = get_user_model()
-            user = User.objects.get(id = request.user.id)
-
-            tipo_de_daño = request.POST['tipo_daño']
-            denunciante = user
-            curp_víctima = request.POST['buscar_curp']
-            fecha_hechos = request.POST['fecha_hechos']
-            calle = request.POST['calle']
-            número_exterior = request.POST['num_exterior']
-            número_interior = request.POST['num_interior']
-            código_postal = request.POST['cp']
-            colonia = request.POST['colonia']
-            localidad = request.POST['localidad']
-            del_mun = request.POST['del_mun']
-            entidad_federativa = request.POST['entidad_federativa']
-            otros_datos = request.POST['otros_datos']
-            relato = request.POST['relato_hechos']
-            víctima = Víctima.objects.get(curp = curp_víctima)
-            print(víctima)
-            
-            push_to_denuncia = Denuncia.objects.create(tipo_de_daño = tipo_de_daño, denunciante = denunciante, víctima = víctima, fecha_hechos = fecha_hechos, calle = calle, número_exterior = número_exterior, número_interior = número_interior, código_postal = código_postal, colonia = colonia, localidad = localidad, del_mun = del_mun, entidad_federativa = entidad_federativa, otros_datos_ubicación = otros_datos, relato_de_hechos = relato)
-            push_to_denuncia.save()
-            
-    return render(request, 'registrar_denunciav2.html')
-
-@login_required
 def logout_user(request):
     logout(request)
     return redirect('login:login')
