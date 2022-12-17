@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from login import forms, models
-from login.models import TME_002_User, Víctima, Solicitante_Externo, Denuncia, Servidor_Público
+from login.models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público
 from django.contrib.auth.models import User
-
+from .models import Denuncia
 
 # Create your views here.
 @login_required(login_url='login:login')

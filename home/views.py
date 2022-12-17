@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from login import models, forms
-from login.models import TME_002_User, Víctima, Solicitante_Externo, Denuncia, Servidor_Público
+from login.models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público
 from django.contrib.auth.models import User
 
 # Create your views here.

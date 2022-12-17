@@ -53,23 +53,5 @@ class Servidor_Público(models.Model):
     tel_fijo = models.CharField(max_length = 20, null = True, blank = True)
     email = models.EmailField(max_length = 254, null = True, blank = True)
 
-class Denuncia(models.Model):
-    folio = models.BigAutoField(primary_key = True)
-    tipo_de_daño = models.CharField(max_length = 20)
-    denunciante = models.ForeignKey(TME_002_User, on_delete = models.CASCADE)
-    víctima = models.ForeignKey(Víctima, on_delete = models.CASCADE)
-    estatus = models.CharField(max_length = 20, default = 'En proceso')
-    fecha_hechos = models.DateField(auto_now = False, auto_now_add = False)
-    calle = models.CharField(max_length = 100, null = True, blank = True)
-    número_exterior = models.CharField(max_length = 10, null = True, blank = True)
-    número_interior = models.CharField(max_length = 10, null = True, blank = True)
-    código_postal = models.CharField(max_length = 10, null = True, blank = True)
-    colonia = models.CharField(max_length = 100, null = True, blank = True)
-    localidad = models.CharField(max_length = 100, null = True, blank = True)
-    del_mun = models.CharField(max_length = 100, null = True, blank = True)
-    entidad_federativa = models.CharField(max_length = 100, null = True, blank = True)
-    otros_datos_ubicación = models.CharField(max_length = 100, null = True, blank = True)
-    relato_de_hechos = models.TextField()
-
     def __str__(self):
-        return ('Folio ' + str(self.folio))
+        return(self.servidor.nombres + ' ' + self.servidor.primer_apellido + ' ' + self.servidor.segundo_apellido)
