@@ -26,7 +26,12 @@
                     <h5>Víctima</h5>
                     <a href="{% url 'fud:complete-victim-profile' %}" class = 'data_btn'>Registrar víctima</a>
                     |
-                    <input type="text" placeholder="Buscar por CURP" class="input_data" name="buscar_curp">
+                    <input type="text" list="seleccion_de_victima" placeholder="Buscar por CURP" class="input_data" name="buscar_curp">
+                    <datalist id="seleccion_de_victima">
+                        {% for item in seleccion_de_victima %}
+                        <option value = '{{item.curp}}'></option>
+                        {% endfor %}
+                    </datalist>
                 </div> 
 
                 <div class="input_group">

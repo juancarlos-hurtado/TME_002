@@ -63,8 +63,9 @@ def registrar_denuncia_solicitante(request):
             print(víctima)
             push_to_denuncia = Denuncia.objects.create(tipo_de_daño = tipo_de_daño, denunciante = denunciante, víctima = víctima, fecha_hechos = fecha_hechos, calle = calle, número_exterior = número_exterior, número_interior = número_interior, código_postal = código_postal, colonia = colonia, localidad = localidad, del_mun = del_mun, entidad_federativa = entidad_federativa, otros_datos_ubicación = otros_datos, relato_de_hechos = relato)
             push_to_denuncia.save()
-
-    return render(request, 'fud/registrar_denunciav2.html')
+            
+    seleccion_de_victima = Víctima.objects.all()
+    return render(request, 'fud/registrar_denunciav2.html', {'seleccion_de_victima': seleccion_de_victima})
 
 @login_required(login_url = 'login:login')
 def registrar_denuncia_servidor(request):
