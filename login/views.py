@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from . import forms, models
-from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público
+from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público, Coordinador
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -57,15 +57,19 @@ def home(request):
             return redirect('home:home-victima')
         elif request.user.user_type == 'Solicitante Externo':
             return redirect('home:home-solicitante')
-        else:
+        elif request.user.user_type == 'Servidor Público':
             return redirect('home:home-servidor')
+        else:
+            return redirect('home:home-coordinador')
     else:
         if request.user.user_type == 'Víctima':
             return redirect('login:complete_victim_profile')
         elif request.user.user_type == 'Solicitante Externo':
             return redirect('login:complete_solicitante_profile')
-        else:
+        elif request.user.user_type == 'Servidor Público':
             return redirect('login:complete_servidor_profile')
+        else:
+            return redirect('login:complete_coordinador_profile')
 
 @login_required(login_url = 'login:login')
 def complete_victim_profile(request):
@@ -180,6 +184,38 @@ def complete_servidor_profile(request):
             return redirect('login:home')
 
     return render(request, 'login/complete_servidor_profile.html', context )
+
+@login_required(login_url = 'login:login')
+def complete_coordinador_profile(request):
+    context = {
+        'user_type' : request.user.user_type
+    }
+    if 'finalizar' in request.POST:
+        User = get_user_model()
+        user = User.objects.get(id=request.user.id)
+
+        #coordinador = user
+        nombres = request.POST['nombres']
+        primer_apellido = request.POST['primer_apellido']
+        segundo_apellido = request.POST['segundo_apellido']
+        tel_movil = request.POST['tel_movil']
+        tel_fijo = request.POST['tel_fijo']
+        email = request.POST['email']
+
+        push_to_coordinador = Coordinador.objects.create(coordinador = user, tel_movil = tel_movil, tel_fijo = tel_fijo, email = email)
+        push_to_coordinador.save()
+
+        user.nombres = nombres
+        user.primer_apellido = primer_apellido
+        user.segundo_apellido = segundo_apellido
+        user.is_profiled = True
+        user.save()
+
+        return redirect('login:home')
+
+    return render(request, 'login/complete_coordinador_profile.html', context)
+
+
 
 @login_required
 def logout_user(request):

@@ -22,3 +22,7 @@ def home_victima(request):
 def home_solicitante(request):
     return render (request, 'home/home_solicitante.html')
 
+@login_required(login_url = 'login:login')
+def home_coordinador(request):
+    return render (request, 'home/home_coordinador.html')
+

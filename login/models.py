@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from dataclasses import dataclass
 
 class TME_002_User(AbstractUser):
     nombres = models.CharField(max_length = 100, null = True, blank = True)
@@ -7,6 +8,7 @@ class TME_002_User(AbstractUser):
     segundo_apellido = models.CharField(max_length = 100, null = True, blank = True)
     user_type = models.CharField(max_length = 25)
     is_profiled = models.BooleanField(default = False)
+
 
 class Víctima(models.Model):
     víctima = models.OneToOneField(TME_002_User, primary_key = True, on_delete = models.CASCADE)
@@ -55,3 +57,14 @@ class Servidor_Público(models.Model):
 
     def __str__(self):
         return(self.servidor.nombres + ' ' + self.servidor.primer_apellido + ' ' + self.servidor.segundo_apellido)
+
+
+class Coordinador(models.Model):
+    coordinador = models.OneToOneField(TME_002_User, primary_key = True, on_delete = models.CASCADE)
+    tel_movil = models.CharField(max_length = 20, null = True, blank = True)
+    tel_fijo = models.CharField(max_length = 20, null = True, blank = True)
+    email = models.EmailField(max_length = 254, null = True, blank = True)
+
+    def __str__(self):
+        return(self.coordinador.nombres + ' ' + self.coordinador.primer_apellido + ' ' + self.coordinador.segundo_apellido)
+
