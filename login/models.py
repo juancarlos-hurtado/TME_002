@@ -68,3 +68,11 @@ class Coordinador(models.Model):
     def __str__(self):
         return(self.coordinador.nombres + ' ' + self.coordinador.primer_apellido + ' ' + self.coordinador.segundo_apellido)
 
+class Trabajador_Social(models.Model):
+    trabajador_social = models.OneToOneField(TME_002_User, primary_key = True, on_delete = models.CASCADE)
+    tel_movil = models.CharField(max_length = 20, null = True, blank = True)
+    tel_fijo = models.CharField(max_length = 20, null = True, blank = True)
+    email = models.EmailField(max_length = 254, null = True, blank = True)
+
+    def __str__(self):
+        return (self.trabajador_social.nombres + ' ' + self.trabajador_social.primer_apellido + ' ' + self.trabajador_social.segundo_apellido)

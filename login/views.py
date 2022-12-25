@@ -68,8 +68,10 @@ def home(request):
             return redirect('login:complete_solicitante_profile')
         elif request.user.user_type == 'Servidor Público':
             return redirect('login:complete_servidor_profile')
-        else:
+        elif request.user.user_type == 'Coordinador':
             return redirect('login:complete_coordinador_profile')
+        else:
+            return redirect('login:complete_trabajador_profile')
 
 @login_required(login_url = 'login:login')
 def complete_victim_profile(request):
