@@ -78,6 +78,10 @@ class Trabajador_Social(models.Model):
         return (self.trabajador_social.nombres + ' ' + self.trabajador_social.primer_apellido + ' ' + self.trabajador_social.segundo_apellido)
 
 class Colonia(models.Model):
-    nombre = models.CharField(max_length = 150, null = True, blank = True)
     cp = models. CharField(max_length = 6, null = True, blank = True)
+    colonia = models.CharField(max_length = 150, null = True, blank = True)
     delegación = models.CharField(max_length = 100, null = True, blank = True)
+    estado = models.CharField(max_length = 25, null = True, blank = True)
+
+    def __str__(self):
+        return(self.colonia)
