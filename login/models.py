@@ -77,6 +77,13 @@ class Trabajador_Social(models.Model):
     def __str__(self):
         return (self.trabajador_social.nombres + ' ' + self.trabajador_social.primer_apellido + ' ' + self.trabajador_social.segundo_apellido)
 
+class Entidad_Federativa(models.Model):
+    nombre = models.CharField(max_length = 50, null = True, blank = True)
+    clave = models.CharField(max_length = 3, null = True, blank = True)
+
+    def __str__(self):
+        return(self.nombre)
+
 class Colonia(models.Model):
     cp = models. CharField(max_length = 6, null = True, blank = True)
     colonia = models.CharField(max_length = 150, null = True, blank = True)
