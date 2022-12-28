@@ -94,3 +94,11 @@ class Colonia(models.Model):
 
     def __str__(self):
         return(self.colonia)
+
+class Alcaldia(models.Model):
+    nombre = models.CharField(max_length = 50, null = True, blank = True)
+    latitud = models.FloatField(null = True, blank = True)
+    longitud = models.FloatField(null = True, blank = True)
+
+    def __str__(self):
+        return(self.nombre)

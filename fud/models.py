@@ -16,7 +16,8 @@ class Denuncia(models.Model):
     colonia = models.CharField(max_length =100, null = True, blank = True)
     localidad = models.CharField(max_length = 100, null = True, blank = True)
     del_mun = models.CharField(max_length = 100, null = True, blank = True)
-    entidad_federativa = models.CharField(max_length = 100, null = True, blank = True)
+    entidad_federativa = models.ForeignKey(mdl.Entidad_Federativa, null = True, on_delete = models.CASCADE, related_name = 'entidad_federativa_denuncia')
+    #entidad_federativa = models.CharField(max_length = 100, null = True, blank = True)
     otros_datos_ubicación = models.CharField(max_length = 500, null = True, blank = True)
     relato_de_hechos = models.TextField()
 
