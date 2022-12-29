@@ -2,13 +2,13 @@ from django.core.management.base import BaseCommand
 import pandas as pd
 from sqlalchemy import create_engine
 import pymysql
-from login.models import Colonia
+from locations.models import Colonia
 
 class Command(BaseCommand):
     help = 'A command to add data from a csv file'
 
     def handle(self, *args, **options):
-        dataframe_mx = pd.read_csv('cepes.csv', low_memory = False)
+        dataframe_mx = pd.read_csv('locations/management/commands/cepes.csv', low_memory = False)
         dataframe_mx.drop_duplicates()
 
         cdmx_dataframe = dataframe_mx.loc[dataframe_mx['ciudad'] == 'Ciudad de México']
@@ -29,6 +29,7 @@ class Command(BaseCommand):
         short_cp.columns = ['cp', 'colonia', 'delegación','estado']
 
         códigos_postales = pd.concat([cut_df, short_cp])
+        códigos_postales.columns = ['cp', 'colonia', 'alcaldia', 'estado']
 
         print(códigos_postales)
 

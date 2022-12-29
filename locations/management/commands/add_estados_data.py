@@ -2,13 +2,13 @@ from django.core.management.base import BaseCommand
 import pandas as pd
 from sqlalchemy import create_engine
 import pymysql
-from login.models import Entidad_Federativa
+from locations.models import Entidad_Federativa
 
 class Command(BaseCommand):
     help = 'A command to add data from a json file'
 
     def handle(self, *args, **options) :
-        dataframe_estados = pd.read_json('login/management/commands/estados_mx.json')
+        dataframe_estados = pd.read_json('locations/management/commands/estados_mx.json')
         dataframe_estados = dataframe_estados[['nombre', 'clave']]
 
         print(dataframe_estados)

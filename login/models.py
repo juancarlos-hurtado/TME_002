@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from dataclasses import dataclass
+from locations import models as mdl
 
 class TME_002_User(AbstractUser):
     nombres = models.CharField(max_length = 100, null = True, blank = True)
@@ -18,7 +19,7 @@ class Víctima(models.Model):
     nacionalidad = models.CharField(max_length = 20, null = True, blank = True)
     curp = models.CharField(max_length = 18)
     pais_nacimiento = models.CharField(max_length = 50, null = True, blank = True)
-    entidad_nacimiento = models.ForeignKey('Entidad_Federativa', null = True, on_delete = models.CASCADE, related_name = 'entidad_nacimiento')
+    entidad_nacimiento = models.ForeignKey(mdl.Entidad_Federativa, null = True, on_delete = models.CASCADE, related_name = 'entidad_nacimiento')
     #entidad_nacimiento = models.CharField(max_length = 50, null = True, blank = True)
     del_mun_nac = models.CharField(max_length = 50, null = True, blank = True)
     comunidad_nacimiento = models.CharField(max_length = 50, null = True, blank = True)
@@ -30,7 +31,7 @@ class Víctima(models.Model):
     colonia = models.CharField(max_length = 100)
     localidad = models.CharField(max_length = 100, null = True, blank = True)
     del_mun = models.CharField(max_length = 100)
-    entidad_federativa = models.ForeignKey('Entidad_Federativa', null = True, on_delete = models.CASCADE, related_name = 'entidad_federativa')
+    entidad_federativa = models.ForeignKey(mdl.Entidad_Federativa, null = True, on_delete = models.CASCADE, related_name = 'entidad_federativa')
     #entidad_federativa = models.CharField(max_length = 100)
     tel = models.CharField(max_length = 20, null = True, blank = True)
     email_victima = models.EmailField(max_length = 254, null = True, blank = True)
@@ -79,26 +80,26 @@ class Trabajador_Social(models.Model):
     def __str__(self):
         return (self.trabajador_social.nombres + ' ' + self.trabajador_social.primer_apellido + ' ' + self.trabajador_social.segundo_apellido)
 
-class Entidad_Federativa(models.Model):
-    nombre = models.CharField(max_length = 50, null = True, blank = True)
-    clave = models.CharField(max_length = 3, null = True, blank = True)
-
-    def __str__(self):
-        return(self.nombre)
-
-class Colonia(models.Model):
-    cp = models. CharField(max_length = 6, null = True, blank = True)
-    colonia = models.CharField(max_length = 150, null = True, blank = True)
-    delegación = models.CharField(max_length = 100, null = True, blank = True)
-    estado = models.CharField(max_length = 25, null = True, blank = True)
-
-    def __str__(self):
-        return(self.colonia)
-
-class Alcaldia(models.Model):
-    nombre = models.CharField(max_length = 50, null = True, blank = True)
-    latitud = models.FloatField(null = True, blank = True)
-    longitud = models.FloatField(null = True, blank = True)
-
-    def __str__(self):
-        return(self.nombre)
+#class Entidad_Federativa(models.Model):
+#    nombre = models.CharField(max_length = 50, null = True, blank = True)
+#    clave = models.CharField(max_length = 3, null = True, blank = True)
+#
+#    def __str__(self):
+#        return(self.nombre)
+#
+#class Colonia(models.Model):
+#    cp = models. CharField(max_length = 6, null = True, blank = True)
+#    colonia = models.CharField(max_length = 150, null = True, blank = True)
+#    delegación = models.CharField(max_length = 100, null = True, blank = True)
+#    estado = models.CharField(max_length = 25, null = True, blank = True)
+#
+#    def __str__(self):
+#        return(self.colonia)
+#
+#class Alcaldia(models.Model):
+#    nombre = models.CharField(max_length = 50, null = True, blank = True)
+#    latitud = models.FloatField(null = True, blank = True)
+#    longitud = models.FloatField(null = True, blank = True)
+#
+#    def __str__(self):
+#        return(self.nombre)
