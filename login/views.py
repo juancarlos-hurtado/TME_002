@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from . import forms, models
 from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público, Coordinador
 from django.contrib.auth.models import User
+import locations.models as locations
 
 # Create your views here.
 
@@ -34,7 +35,7 @@ def login_user(request):
 
         if 'save_account' in request.POST:
             context['create_form'] = forms.create_form(request.POST)
-            if context['create_form'].is_valid:
+            if context['create_form'].is_valid():
                 username = request.POST['create_username']
                 email = request.POST['create_email']
                 password = request.POST['create_password']
@@ -75,9 +76,6 @@ def home(request):
 
 @login_required(login_url = 'login:login')
 def complete_victim_profile(request):
-    context = {
-        'user_type' : request.user.user_type
-    }
     if request.method == 'POST':
         if 'finalizar' in request.POST:
             tipo = request.POST['tipo']
@@ -89,7 +87,7 @@ def complete_victim_profile(request):
             nacionalidad = request.POST['nacionalidad']
             curp = request.POST['curp']
             pais_nacimiento = request.POST['país']
-            entidad_nacimiento = request.POST['ent_fed_nac']
+            entidad_nacimiento = locations.Entidad_Federativa.objects.get(nombre = request.POST['ent_fed_nac'])
             del_mun_nac = request.POST['del_mun_nac']
             com_nacimiento = request.POST['comunidad_nacimiento']
             estado_civil = request.POST['edo_civil']
@@ -97,10 +95,10 @@ def complete_victim_profile(request):
             num_exterior = request.POST['num_exterior']
             num_interior = request.POST['num_interior']
             cp = request.POST['cp']
-            colonia = request.POST['colonia']
+            colonia = locations.Colonia.objects.get(colonia = request.POST['colonia'])
             localidad = request.POST['localidad']
-            del_mun = request.POST['del_mun']
-            entidad_federativa = request.POST['ent_fed']
+            del_mun = locations.Alcaldia.objects.get(nombre = request.POST['del_mun'])
+            entidad_federativa = locations.Entidad_Federativa.objects.get(nombre = request.POST['ent_fed'])
             telefono = request.POST['teléfono']
             email_victima = request.POST['email']
 
@@ -118,6 +116,12 @@ def complete_victim_profile(request):
             user.save()
             
             return redirect('login:home')
+    context = {
+        'user_type' : request.user.user_type,
+        'select_alcaldia' : locations.Alcaldia.objects.all(),
+        'select_entidad' : locations.Entidad_Federativa.objects.all(),
+        'select_colonia' : locations.Colonia.objects.all()
+    }
 
     return render (request, 'login/complete_victim_profile.html', context)
 

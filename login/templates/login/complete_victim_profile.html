@@ -78,38 +78,9 @@
                         <input type="text" class="input_data" placeholder="País" name = 'país' style="width: 180px;">
                         <select class="input_data" placeholder="Entidad federativa" name = 'ent_fed_nac' style="width: 180px;">
                             <option value="" disabled selected hidden>Entidad federativa</option>
-                            <option value="Aguascalientes">Aguascalientes</option>
-                            <option value="Baja California">Baja California</option>
-                            <option value="Baja California Sur">Baja California Sur</option>
-                            <option value="Campeche">Campeche</option>
-                            <option value="Chiapas">Chiapas</option>
-                            <option value="Chihuahua">Chihuahua</option>
-                            <option value="CDMX">Ciudad de México</option>
-                            <option value="Coahuila">Coahuila</option>
-                            <option value="Colima">Colima</option>
-                            <option value="Durango">Durango</option>
-                            <option value="Estado de México">Estado de México</option>
-                            <option value="Guanajuato">Guanajuato</option>
-                            <option value="Guerrero">Guerrero</option>
-                            <option value="Hidalgo">Hidalgo</option>
-                            <option value="Jalisco">Jalisco</option>
-                            <option value="Michoacán">Michoacán</option>
-                            <option value="Morelos">Morelos</option>
-                            <option value="Nayarit">Nayarit</option>
-                            <option value="Nuevo León">Nuevo León</option>
-                            <option value="Oaxaca">Oaxaca</option>
-                            <option value="Puebla">Puebla</option>
-                            <option value="Querétaro">Querétaro</option>
-                            <option value="Quintana Roo">Quintana Roo</option>
-                            <option value="San Luis Potosí">San Luis Potosí</option>
-                            <option value="Sinaloa">Sinaloa</option>
-                            <option value="Sonora">Sonora</option>
-                            <option value="Tabasco">Tabasco</option>
-                            <option value="Tamaulipas">Tamaulipas</option>
-                            <option value="Tlaxcala">Tlaxcala</option>
-                            <option value="Veracruz">Veracruz</option>
-                            <option value="Yucatán">Yucatán</option>
-                            <option value="Zacatecas">Zacatecas</option>
+                            {% for item in select_entidad %}
+                            <option value = '{{item}}'>{{item.nombre}}</option>
+                            {% endfor %}
                         </select>   
                         <input type="text" class="input_data" placeholder="Delegación o municipio" name = 'del_mun_nac' style="width: 180px;">
                         <input type="text" class="input_data" placeholder="Población o comunidad" name = 'comunidad_nacimiento'>
@@ -138,49 +109,31 @@
                         <input type="text" class="input_data" placeholder="Número exterior" name = 'num_exterior'>
                         <input type="text" class="input_data" placeholder="Número interior" name = 'num_interior'>
                         <input type="text" class="input_data" placeholder="Código postal" name = 'cp'>
-                        <input type="text" class="input_data" placeholder="Colonia" name = 'colonia'>
+                        <input type="text" class = 'input_data' placeholder="Colonia" name="colonia" list="select_colonia">
+                        <datalist id = 'select_colonia'>
+                            <option value="" disabled selected hidden>Colonia</option>
+                            {% for item in select_colonia %}
+                            <option value = '{{item}}'>{{item.colonia}}</option>
+                            {% endfor %}
+                        </datalist>
                     </div>
                 </div>
 
                 <div class="input_row">
                     <div class="input_group">
-                        <select class="input_data" placeholder="Entidad federativa" name = 'ent_fed_nac' style="width: 180px;">
+                        <select class="input_data" placeholder="Entidad federativa" name = 'ent_fed' style="width: 180px;">
                             <option value="" disabled selected hidden>Entidad federativa</option>
-                            <option value="Aguascalientes">Aguascalientes</option>
-                            <option value="Baja California">Baja California</option>
-                            <option value="Baja California Sur">Baja California Sur</option>
-                            <option value="Campeche">Campeche</option>
-                            <option value="Chiapas">Chiapas</option>
-                            <option value="Chihuahua">Chihuahua</option>
-                            <option value="CDMX">Ciudad de México</option>
-                            <option value="Coahuila">Coahuila</option>
-                            <option value="Colima">Colima</option>
-                            <option value="Durango">Durango</option>
-                            <option value="Estado de México">Estado de México</option>
-                            <option value="Guanajuato">Guanajuato</option>
-                            <option value="Guerrero">Guerrero</option>
-                            <option value="Hidalgo">Hidalgo</option>
-                            <option value="Jalisco">Jalisco</option>
-                            <option value="Michoacán">Michoacán</option>
-                            <option value="Morelos">Morelos</option>
-                            <option value="Nayarit">Nayarit</option>
-                            <option value="Nuevo León">Nuevo León</option>
-                            <option value="Oaxaca">Oaxaca</option>
-                            <option value="Puebla">Puebla</option>
-                            <option value="Querétaro">Querétaro</option>
-                            <option value="Quintana Roo">Quintana Roo</option>
-                            <option value="San Luis Potosí">San Luis Potosí</option>
-                            <option value="Sinaloa">Sinaloa</option>
-                            <option value="Sonora">Sonora</option>
-                            <option value="Tabasco">Tabasco</option>
-                            <option value="Tamaulipas">Tamaulipas</option>
-                            <option value="Tlaxcala">Tlaxcala</option>
-                            <option value="Veracruz">Veracruz</option>
-                            <option value="Yucatán">Yucatán</option>
-                            <option value="Zacatecas">Zacatecas</option>
+                            {% for item in select_entidad %}
+                            <option value="{{item}}">{{item.nombre}}</option>
+                            {% endfor %}
                         </select>
                         <input type="text" class="input_data" placeholder="Localidad" name = 'localidad'>
-                        <input type="text" class="input_data" placeholder="Delegación o municipio" name = 'del_mun'>
+                        <select class="input_data" name = 'del_mun'>
+                            <option value="" disabled selected hidden>Delegación</option>
+                            {% for item in select_alcaldia %}
+                            <option value = '{{item}}'>{{item.nombre}}</option>
+                            {% endfor %}
+                        </select>
                         <input type="text" class="input_data" placeholder="Teléfono" name = 'teléfono'>
                     </div>
                 </div>

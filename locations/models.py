@@ -10,8 +10,8 @@ class Entidad_Federativa(models.Model):
 class Colonia(models.Model):
     cp = models.CharField(max_length = 6, null = True, blank = True)
     colonia = models.CharField(max_length = 150, null = True, blank = True)
-    alcaldia = models.CharField(max_length = 50, null = True, blank = True)
-    estado = models.CharField(max_length = 50, null = True, blank = True)
+    alcaldia = models.ForeignKey('Alcaldia', null = True, blank = True, on_delete = models.CASCADE)
+    estado = models.ForeignKey('Entidad_Federativa', null = True, blank = True, on_delete = models.CASCADE)
 
     def __str__(self):
         return(self.colonia)
