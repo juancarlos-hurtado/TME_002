@@ -37,6 +37,8 @@ class Víctima(models.Model):
     email_victima = models.EmailField(max_length = 254, null = True, blank = True)
     coordinador_asignado = models.ForeignKey('Coordinador', null = True, blank = True, on_delete = models.CASCADE)
     trabajador_asignado = models.ForeignKey('Trabajador_Social', null = True, blank = True, on_delete = models.CASCADE)
+    psicologo_asignado = models.ForeignKey('Psicologo', null = True, blank = True, on_delete = models.CASCADE)
+    medico_asignado = models.ForeignKey('Medico', null = True, blank = True, on_delete = models.CASCADE)
 
     def __str__(self):
         return (self.víctima.nombres + ' ' +self.víctima.primer_apellido + ' ' + self.víctima.segundo_apellido)
@@ -81,3 +83,21 @@ class Trabajador_Social(models.Model):
 
     def __str__(self):
         return (self.trabajador_social.nombres + ' ' + self.trabajador_social.primer_apellido + ' ' + self.trabajador_social.segundo_apellido)
+
+class Psicologo(models.Model):
+    psicologo = models.OneToOneField(TME_002_User, primary_key = True, on_delete = models.CASCADE)
+    tel_movil = models.CharField(max_length = 20, null = True, blank = True)
+    tel_fijo = models.CharField(max_length = 20, null = True, blank = True)
+    email = models.EmailField(max_length = 254, null = True, blank = True)
+
+    def __str__(self):
+        return (self.psicologo.nombres + ' ' + self.psicologo.primer_apellido + ' ' + self.psicologo.segundo_apellido)
+
+class Medico(models.Model):
+    medico = models.OneToOneField(TME_002_User, primary_key = True, on_delete = models.CASCADE)
+    tel_movil = models.CharField(max_length = 20, null = True, blank = True)
+    tel_fijo = models.CharField(max_length = 20, null = True, blank = True)
+    email = models.EmailField(max_length = 254, null = True, blank = True)
+
+    def __str__(self):
+        return (self.medico.nombres + ' ' + self.medico.primer_apellido + ' ' + self.medico.segundo_apellido)
