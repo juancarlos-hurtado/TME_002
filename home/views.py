@@ -31,12 +31,41 @@ def home_trabajador(request):
     return render(request, 'home/home_trabajador.html')
 
 @login_required(login_url = 'login:login')
+def home_psicologo(request):
+    return render(request, 'home/home_psicologo.html')
+
+@login_required(login_url = 'login:login')
+def home_medico(request):
+    return render(request, 'home/home_medico.html')
+
+@login_required(login_url = 'login:login')
 def registrar_equipo(request):
     context = {
         'select_coordinador': Coordinador.objects.all(),
         'select_trabajador': Trabajador_Social.objects.all(),
         'select_psicologo': Psicologo.objects.all(),
-        'select_medico': Medico.objects.all()
+        'select_medico': Medico.objects.all(),
+        'select_victima': Víctima.objects.all()
     }
+    if request.method == 'POST':
+        if 'enviar_equipo' in request.POST:
+            victima = Víctima.objects.get(víctima_id = request.POST['victima_seleccionada'])
+            #victima = request.POST['victima_seleccionada']
+            coordinador_asigando = Coordinador.objects.get(coordinador = request.POST['coodinador_seleccionado'])
+            trabajador_asignado = Trabajador_Social.objects.get(trabajador_social = request.POST['trabajador_seleccionado'])
+            psicologo_asigando = Psicologo.objects.get( psicologo = request.POST['psicologo_seleccionado'])
+            medico_asigando = Medico.objects.get(medico = request.POST['medico_seleccionado'])
+
+            victima.coordinador_asignado = coordinador_asigando
+            victima.save()
+            victima.trabajador_asignado = trabajador_asignado
+            victima.save()
+            victima.psicologo_asignado = psicologo_asigando
+            victima.save()
+            victima.medico_asignado = medico_asigando
+            victima.save()
+
+            return redirect('login:home')
+
     return render (request, 'home/registrar_equipo.html', context)
 

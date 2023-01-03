@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from . import forms, models
-from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público, Coordinador, Trabajador_Social
+from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público, Coordinador, Trabajador_Social, Psicologo, Medico
 from django.contrib.auth.models import User
 import locations.models as locations
 
@@ -60,10 +60,14 @@ def home(request):
             return redirect('home:home-solicitante')
         elif request.user.user_type == 'Servidor Público':
             return redirect('home:home-servidor')
+        elif request.user.user_type == 'Coordinador':
+            return redirect('home:home-coordinador')
         elif request.user.user_type == 'Trabajador social':
             return redirect('home:home-trabajador')
+        elif request.user.user_type == 'Psicologo':
+            return redirect('home:home-psicologo')
         else:
-            return redirect('home:home-coordinador')
+            return redirect('home:home-medico')
     else:
         if request.user.user_type == 'Víctima':
             return redirect('login:complete_victim_profile')
@@ -75,8 +79,10 @@ def home(request):
             return redirect('login:complete_coordinador_profile')
         elif request.user.user_type == 'Trabajador social':
             return redirect('login:complete_trabajador_profile')
+        elif request.user.user_type == 'Psicologo':
+            return redirect('login:complete_psicologo_profile')
         else:
-            return redirect('login:complete_trabajador_profile')
+            return redirect('login:complete_medico_profile')
 
 @login_required(login_url = 'login:login')
 def complete_victim_profile(request):
@@ -234,7 +240,7 @@ def complete_trabajador_profile(request):
         User = get_user_model()
         user = User.objects.get(id=request.user.id)
 
-        #coordinador = user
+        #trabajador = user
         nombres = request.POST['nombres']
         primer_apellido = request.POST['primer_apellido']
         segundo_apellido = request.POST['segundo_apellido']
@@ -254,6 +260,66 @@ def complete_trabajador_profile(request):
         return redirect('login:home')
 
     return render(request, 'login/complete_trabajador_profile.html', context)
+
+@login_required(login_url = 'login:login')
+def complete_psicologo_profile(request):
+    context = {
+        'user_type' : request.user.user_type
+    }
+    if 'finalizar' in request.POST:
+        User = get_user_model()
+        user = User.objects.get(id=request.user.id)
+
+        #psicologo = user
+        nombres = request.POST['nombres']
+        primer_apellido = request.POST['primer_apellido']
+        segundo_apellido = request.POST['segundo_apellido']
+        tel_movil = request.POST['tel_movil']
+        tel_fijo = request.POST['tel_fijo']
+        email = request.POST['email']
+
+        push_to_psicologo = Psicologo.objects.create(psicologo = user, tel_movil = tel_movil, tel_fijo = tel_fijo, email = email)
+        push_to_psicologo.save()
+
+        user.nombres = nombres
+        user.primer_apellido = primer_apellido
+        user.segundo_apellido = segundo_apellido
+        user.is_profiled = True
+        user.save()
+
+        return redirect('login:home')
+
+    return render(request, 'login/complete_psicologo_profile.html', context)
+
+@login_required(login_url = 'login:login')
+def complete_medico_profile(request):
+    context = {
+        'user_type' : request.user.user_type
+    }
+    if 'finalizar' in request.POST:
+        User = get_user_model()
+        user = User.objects.get(id=request.user.id)
+
+        #psicologo = user
+        nombres = request.POST['nombres']
+        primer_apellido = request.POST['primer_apellido']
+        segundo_apellido = request.POST['segundo_apellido']
+        tel_movil = request.POST['tel_movil']
+        tel_fijo = request.POST['tel_fijo']
+        email = request.POST['email']
+
+        push_to_medico = Medico.objects.create(medico = user, tel_movil = tel_movil, tel_fijo = tel_fijo, email = email)
+        push_to_medico.save()
+
+        user.nombres = nombres
+        user.primer_apellido = primer_apellido
+        user.segundo_apellido = segundo_apellido
+        user.is_profiled = True
+        user.save()
+
+        return redirect('login:home')
+
+    return render(request, 'login/complete_medico_profile.html', context)
 
 @login_required
 def logout_user(request):

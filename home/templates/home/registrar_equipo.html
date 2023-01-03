@@ -20,12 +20,21 @@
     {% include 'home/fixed_elements/header_nav.html' %}
 
     <main>
-        <form>
+        <form method = 'POST'>
+            {% csrf_token %}
+            <div class="input_group">
+                <input type="text" placeholder="Víctima" class = 'input_data' list = 'select_victima' name = 'victima_seleccionada'>
+                <datalist id = 'select_victima'>
+                    {% for item in select_victima %}
+                    <option value = '{{item.víctima_id}}'>{{item.nombres}}</option>
+                    {% endfor %}
+                </datalist>
+            </div>
             <div class="input_group">
                 <input type="text" placeholder="Coordinador" class = 'input_data' list = 'select_coordinador' name = 'coodinador_seleccionado'>
                 <datalist id = 'select_coordinador'>
                     {% for item in select_coordinador %}
-                    <option value = '{{item}}'>{{item}}</option>
+                    <option value = '{{item.coordinador_id}}'>{{item}}</option>
                     {% endfor %}
                 </datalist>
             </div>
@@ -33,7 +42,23 @@
                 <input type="text" placeholder="Trabajador social" class = 'input_data' list = 'select_trabajador' name = 'trabajador_seleccionado'>
                 <datalist id = 'select_trabajador'>
                     {% for item in select_trabajador %}
-                    <option value = '{{item}}'>{{item}}</option>
+                    <option value = '{{item.trabajador_social_id}}'>{{item}}</option>
+                    {%  endfor %}
+                </datalist>
+            </div>
+            <div class="input_group">
+                <input type="text" placeholder="Psicologo" class = 'input_data' list = 'select_psicologo' name = 'psicologo_seleccionado'>
+                <datalist id = 'select_psicologo'>
+                    {% for item in select_psicologo %}
+                    <option value = '{{item.psicologo_id}}'>{{item}}</option>
+                    {%  endfor %}
+                </datalist>
+            </div>
+            <div class="input_group">
+                <input type="text" placeholder="Médico" class = 'input_data' list = 'select_medico' name = 'medico_seleccionado'>
+                <datalist id = 'select_medico'>
+                    {% for item in select_medico %}
+                    <option value = '{{item.medico_id}}'>{{item}}</option>
                     {%  endfor %}
                 </datalist>
             </div>
