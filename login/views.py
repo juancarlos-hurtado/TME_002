@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from . import forms, models
-from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público, Coordinador
+from .models import TME_002_User, Víctima, Solicitante_Externo, Servidor_Público, Coordinador, Trabajador_Social
 from django.contrib.auth.models import User
 import locations.models as locations
 
@@ -60,6 +60,8 @@ def home(request):
             return redirect('home:home-solicitante')
         elif request.user.user_type == 'Servidor Público':
             return redirect('home:home-servidor')
+        elif request.user.user_type == 'Trabajador social':
+            return redirect('home:home-trabajador')
         else:
             return redirect('home:home-coordinador')
     else:
@@ -71,6 +73,8 @@ def home(request):
             return redirect('login:complete_servidor_profile')
         elif request.user.user_type == 'Coordinador':
             return redirect('login:complete_coordinador_profile')
+        elif request.user.user_type == 'Trabajador social':
+            return redirect('login:complete_trabajador_profile')
         else:
             return redirect('login:complete_trabajador_profile')
 
@@ -221,7 +225,35 @@ def complete_coordinador_profile(request):
 
     return render(request, 'login/complete_coordinador_profile.html', context)
 
+@login_required(login_url = 'login:login')
+def complete_trabajador_profile(request):
+    context = {
+        'user_type' : request.user.user_type
+    }
+    if 'finalizar' in request.POST:
+        User = get_user_model()
+        user = User.objects.get(id=request.user.id)
 
+        #coordinador = user
+        nombres = request.POST['nombres']
+        primer_apellido = request.POST['primer_apellido']
+        segundo_apellido = request.POST['segundo_apellido']
+        tel_movil = request.POST['tel_movil']
+        tel_fijo = request.POST['tel_fijo']
+        email = request.POST['email']
+
+        push_to_trabajador = Trabajador_Social.objects.create(trabajador_social = user, tel_movil = tel_movil, tel_fijo = tel_fijo, email = email)
+        push_to_trabajador.save()
+
+        user.nombres = nombres
+        user.primer_apellido = primer_apellido
+        user.segundo_apellido = segundo_apellido
+        user.is_profiled = True
+        user.save()
+
+        return redirect('login:home')
+
+    return render(request, 'login/complete_trabajador_profile.html', context)
 
 @login_required
 def logout_user(request):
